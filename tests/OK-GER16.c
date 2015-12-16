@@ -52,13 +52,13 @@ _class_B*new_B(void);
 return ;
 }
        void _B_init (_class_B *this) { 
-      ;
+      _A_init( (_class_A *) this,  );
  =       2;
 }
        void _B_print (_class_B *this) { 
       printf("%d ",( (int (*) (_class_B *)) this->vt[0]) ((_class_B*) this));
       printf("%d ",( (int (*) (_class_B *)) this->vt[-1]) ((_class_B*) this));
-      ;
+      _A_print( (_class_A *) this,  );
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_get_A

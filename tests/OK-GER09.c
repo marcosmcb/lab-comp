@@ -35,7 +35,7 @@ typedef struct _St_B {
 
 _class_B*new_B(void);
        void _B_m2 (_class_B *this, int _n) { 
-      ;
+      _A_m1( (_class_A *) this, _n );
       printf("%d ",      2);
       printf("%d ",_n);
 }
@@ -59,7 +59,7 @@ typedef struct _St_C {
 
 _class_C*new_C(void);
           void _C_m3 (_class_C *this, int _n) { 
-         ;
+         _B_m2( (_class_B *) this, _n );
          printf("%d ",         3);
          printf("%d ",_n);
 }

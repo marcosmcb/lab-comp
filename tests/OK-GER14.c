@@ -44,7 +44,7 @@ _class_B*new_B(void);
 return ;
 }
        void _B_init (_class_B *this) { 
-      ;
+      _A_init( (_class_A *) this,  );
  =       2;
 }
 Func VTclass_B[] = {
@@ -74,7 +74,7 @@ _class_C*new_C(void);
 return ;
 }
           void _C_init (_class_C *this) { 
-         ;
+         _B_init( (_class_B *) this,  );
  =          3;
 }
 Func VTclass_C[] = {
@@ -106,7 +106,7 @@ _class_D*new_D(void);
 return ;
 }
              void _D_init (_class_D *this) { 
-            ;
+            _C_init( (_class_C *) this,  );
  =             4;
 }
 Func VTclass_D[] = {

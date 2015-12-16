@@ -70,7 +70,7 @@ _class_C*new_C(void);
          printf("%d ",         8);
 }
           void _C_teste (_class_C *this) { 
-         ;
+         _B_m1( (_class_B *) this,  );
 }
 Func VTclass_C[] = {
             ( void (*)() ) _B_m2

@@ -38,7 +38,7 @@ typedef struct _St_B {
 
 _class_B*new_B(void);
        void _B_m (_class_B *this) { 
-      ;
+      _A_accept( (_class_A *) this, _x );
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_print

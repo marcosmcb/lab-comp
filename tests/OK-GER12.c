@@ -39,7 +39,7 @@ typedef struct _St_B {
 _class_B*new_B(void);
        void _B_m2 (_class_B *this, int _n) { 
       printf("%d ",_n);
-      ;
+      _A_m2( (_class_A *) this, _n );
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_m1
@@ -62,7 +62,7 @@ typedef struct _St_C {
 
 _class_C*new_C(void);
           void _C_m1 (_class_C *this) { 
-         ;
+         _B_m1( (_class_B *) this,  );
          printf("%d ",         2);
 }
           void _C_m3 (_class_C *this) { 

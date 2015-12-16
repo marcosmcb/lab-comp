@@ -41,7 +41,7 @@ typedef struct _St_B {
 _class_B*new_B(void);
        void _B_set (_class_B *this, int _pn) { 
       printf("%d ",_pn);
-      ;
+      _A_set( (_class_A *) this, _n );
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_set
