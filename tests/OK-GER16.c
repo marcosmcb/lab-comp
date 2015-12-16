@@ -62,10 +62,10 @@ return ;
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_get_A
-         ( void (*)() ) _A_set
-         ( void (*)() ) _A_print
-         ( void (*)() ) _A_init
-( void (*)() ) _B_get_B
+,         ( void (*)() ) _A_set
+,         ( void (*)() ) _A_print
+,         ( void (*)() ) _A_init
+,( void (*)() ) _B_get_B
 ,( void (*)() ) _B_init
 ,( void (*)() ) _B_print
 
@@ -90,10 +90,10 @@ return          0;
 }
 Func VTclass_C[] = {
             ( void (*)() ) _A_get_A
-            ( void (*)() ) _A_set
-            ( void (*)() ) _A_print
-            ( void (*)() ) _A_init
-( void (*)() ) _C_get_A
+,            ( void (*)() ) _A_set
+,            ( void (*)() ) _A_print
+,            ( void (*)() ) _A_init
+,( void (*)() ) _C_get_A
 
 };
 

@@ -51,7 +51,7 @@ return       10;
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_f
-( void (*)() ) _B_g
+,( void (*)() ) _B_g
 ,( void (*)() ) _B_p
 ,( void (*)() ) _B_r
 ,( void (*)() ) _B_f
@@ -82,10 +82,10 @@ return          101;
 }
 Func VTclass_C[] = {
             ( void (*)() ) _B_g
-            ( void (*)() ) _B_r
-            ( void (*)() ) _B_f
-            ( void (*)() ) _A_f
-( void (*)() ) _C_f
+,            ( void (*)() ) _B_r
+,            ( void (*)() ) _B_f
+,            ( void (*)() ) _A_f
+,( void (*)() ) _C_f
 ,( void (*)() ) _C_g
 ,( void (*)() ) _C_r
 

@@ -41,7 +41,7 @@ _class_B*new_B(void);
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_m1
-( void (*)() ) _B_m2
+,( void (*)() ) _B_m2
 
 };
 
@@ -70,8 +70,8 @@ _class_C*new_C(void);
 }
 Func VTclass_C[] = {
             ( void (*)() ) _B_m2
-            ( void (*)() ) _A_m1
-( void (*)() ) _C_m3
+,            ( void (*)() ) _A_m1
+,( void (*)() ) _C_m3
 ,( void (*)() ) _C_m4
 
 };

@@ -47,9 +47,9 @@ _class_B*new_B(void);
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_get
-         ( void (*)() ) _A_set
-         ( void (*)() ) _A_m1
-( void (*)() ) _B_m2
+,         ( void (*)() ) _A_set
+,         ( void (*)() ) _A_m1
+,( void (*)() ) _B_m2
 
 };
 
@@ -74,10 +74,10 @@ _class_C*new_C(void);
 }
 Func VTclass_C[] = {
             ( void (*)() ) _B_m2
-            ( void (*)() ) _A_get
-            ( void (*)() ) _A_set
-            ( void (*)() ) _A_m1
-( void (*)() ) _C_m1
+,            ( void (*)() ) _A_get
+,            ( void (*)() ) _A_set
+,            ( void (*)() ) _A_m1
+,( void (*)() ) _C_m1
 ,( void (*)() ) _C_teste
 
 };
@@ -100,12 +100,12 @@ _class_D*new_D(void);
 }
 Func VTclass_D[] = {
                ( void (*)() ) _C_m1
-               ( void (*)() ) _C_teste
-               ( void (*)() ) _B_m2
-               ( void (*)() ) _A_get
-               ( void (*)() ) _A_set
-               ( void (*)() ) _A_m1
-( void (*)() ) _D_m1
+,               ( void (*)() ) _C_teste
+,               ( void (*)() ) _B_m2
+,               ( void (*)() ) _A_get
+,               ( void (*)() ) _A_set
+,               ( void (*)() ) _A_m1
+,( void (*)() ) _D_m1
 
 };
 

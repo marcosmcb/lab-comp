@@ -45,8 +45,8 @@ _class_B*new_B(void);
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_set
-         ( void (*)() ) _A_get
-( void (*)() ) _B_set
+,         ( void (*)() ) _A_get
+,( void (*)() ) _B_set
 
 };
 

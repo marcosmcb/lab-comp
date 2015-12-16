@@ -54,9 +54,9 @@ return       1;
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_m1
-         ( void (*)() ) _A_m2
-         ( void (*)() ) _A_m4
-( void (*)() ) _B_m1
+,         ( void (*)() ) _A_m2
+,         ( void (*)() ) _A_m4
+,( void (*)() ) _B_m1
 ,( void (*)() ) _B_m2
 ,( void (*)() ) _B_mB
 
@@ -86,10 +86,10 @@ return finally;
 }
 Func VTclass_C[] = {
             ( void (*)() ) _B_m1
-            ( void (*)() ) _A_m1
-            ( void (*)() ) _A_m2
-            ( void (*)() ) _A_m4
-( void (*)() ) _C_m1
+,            ( void (*)() ) _A_m1
+,            ( void (*)() ) _A_m2
+,            ( void (*)() ) _A_m4
+,( void (*)() ) _C_m1
 ,( void (*)() ) _C_m4
 ,( void (*)() ) _C_m5
 
@@ -110,8 +110,8 @@ typedef struct _St_D {
 _class_D*new_D(void);
 Func VTclass_D[] = {
                ( void (*)() ) _A_m1
-               ( void (*)() ) _A_m2
-               ( void (*)() ) _A_m4
+,               ( void (*)() ) _A_m2
+,               ( void (*)() ) _A_m4
 
 };
 
@@ -138,9 +138,9 @@ return Em4;
 }
 Func VTclass_E[] = {
                   ( void (*)() ) _A_m1
-                  ( void (*)() ) _A_m2
-                  ( void (*)() ) _A_m4
-( void (*)() ) _E_m1
+,                  ( void (*)() ) _A_m2
+,                  ( void (*)() ) _A_m4
+,( void (*)() ) _E_m1
 ,( void (*)() ) _E_m2
 ,( void (*)() ) _E_m4
 

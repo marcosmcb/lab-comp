@@ -54,9 +54,9 @@ if ( ((_a + _b      ) <       1      ) && !_c ){
 }
 Func VTclass_B[] = {
          ( void (*)() ) _A_put
-         ( void (*)() ) _A_get
-         ( void (*)() ) _A_set
-( void (*)() ) _B_put
+,         ( void (*)() ) _A_get
+,         ( void (*)() ) _A_set
+,( void (*)() ) _B_put
 
 };
 
