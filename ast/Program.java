@@ -51,7 +51,8 @@ public class Program {
             pw.println("");
             pw.println("typedef void(*Func)();");
             pw.println("");
-            for (KraClass classList1 : classList)   classList1.genC(pw);
+            for (KraClass classList1 : classList)   
+                classList1.genC(pw);
             
             pw.println("int main() {");
             

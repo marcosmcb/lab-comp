@@ -13,9 +13,9 @@ import ast.*;
 
 public class Comp {
 
-	public static void main( String []args ) {
-		new Comp().run(args);
-	}
+    public static void main( String []args ) {
+            new Comp().run(args);
+    }
 	
     public void run( String []args ) {
 
@@ -76,8 +76,8 @@ public class Comp {
                
            }
            else {
-               compileProgram(file, args[0], outError);
-        	   printReport(1, report);           
+                compileProgram(file, args[0], outError);
+        	printReport(1, report);           
            }
 
 

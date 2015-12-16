@@ -115,10 +115,14 @@ public class MethodDec {
     void genC(PW pw) {
         
         pw.printIdent(" "+ this.type.getName() + " " + "_" + this.getKra().getName()+ "_"+this.getName() + " (");
-      System.out.print(" testetstetetea2763782638762");
-        if (this.qualifierStatic == null)    pw.print("_class_" + this.getKra().getName()+ " *this");
         
-        if (this.paramlist!=null)   this.paramlist.genC(pw);
+        if (this.qualifierStatic == null)    
+            pw.print("_class_" + this.getKra().getName()+ " *this");
+        
+        if (this.paramlist.getSize()>0){
+            pw.print(", ");
+            this.paramlist.genC(pw);
+        }
         
         pw.println(") { ");
         

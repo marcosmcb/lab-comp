@@ -52,23 +52,28 @@ public class Compiler {
                 
 		try 
                 {
-                    while ( lexer.token == Symbol.MOCall )  metaobjectCallList.add(metaobjectCall());
+                    while ( lexer.token == Symbol.MOCall )  
+                        metaobjectCallList.add(metaobjectCall());
 
                     kraClassList.add(classDec());
                      
-                    while ( lexer.token == Symbol.CLASS || lexer.token == Symbol.FINAL )    kraClassList.add(classDec());
+                    while ( lexer.token == Symbol.CLASS || lexer.token == Symbol.FINAL )    
+                        kraClassList.add(classDec());
                     
 
-                    if(symbolTable.getInGlobal("Program") == null)  signalError.show("Source code without a class '"+"Program"+"'");
+                    if(symbolTable.getInGlobal("Program") == null)  
+                        signalError.show("Source code without a class '"+"Program"+"'");
                     
 
-                    if ( lexer.token != Symbol.EOF )                signalError.show("End of file expected");
+                    if ( lexer.token != Symbol.EOF )                
+                        signalError.show("End of file expected");
                     
 		}
 		catch( RuntimeException e) 
                 {
                     
-                    for(CompilationError er : signalError.getCompilationErrorList())    System.out.println(er.getMessage());
+                    for(CompilationError er : signalError.getCompilationErrorList())    
+                        System.out.println(er.getMessage());
                     //e.printStackTrace(); // caso pegue um erro geral, diferente dos emitidos pelo compilador 
                 }
 		return program;
@@ -119,15 +124,19 @@ public class Compiler {
                             
                             lexer.nextToken();
 
-                            if ( lexer.token == Symbol.COMMA )      lexer.nextToken();
+                            if ( lexer.token == Symbol.COMMA )      
+                                lexer.nextToken();
                             
-                            else    break;
+                            else    
+                                break;
                                 
 			}
                         
-			if ( lexer.token != Symbol.RIGHTPAR )       signalError.show("')' expected after metaobject call with parameters");
+			if ( lexer.token != Symbol.RIGHTPAR )       
+                            signalError.show("')' expected after metaobject call with parameters");
                         
-                        else        lexer.nextToken();
+                        else        
+                            lexer.nextToken();
 		}
                 
 		if ( name.equals("nce") ) 
@@ -599,6 +608,12 @@ public class Compiler {
             
             if ( lexer.token != Symbol.RIGHTPAR ){
                 myParamList = formalParamDec();
+                
+                /*if(myParamList!=null)
+                    for(int i=0; i < myParamList.getSize(); i++)
+                        System.out.println("Valor de Parametro em MethodDEC - " + myParamList.getList().get(i).getName() + "COM TIPO ["+myParamList.getList().get(i).getType().getCname()+"]");
+                */
+                
             }
             
             if(name.equals("run") && className.equals("Program") && !myParamList.getList().isEmpty() ){
@@ -711,14 +726,19 @@ public class Compiler {
         */
 	private ParamList formalParamDec() {
             ParamList myParamList = new ParamList();
-            
+                        
             Variable myVar = (Variable) paramDec();
             
+            System.out.println("Valor de Variable em PARAMLIST - Variable [" + myVar.getName() + "] e Tipo ["+myVar.getType().getName()+"]");
+
             myParamList.addElement(myVar);
             
             while (lexer.token == Symbol.COMMA) {
                 lexer.nextToken();
                 myVar = (Variable) paramDec();
+                
+                System.out.println("Valor de Variable em PARAMLIST - Variable [" + myVar.getName() + "] e Tipo ["+myVar.getType().getName()+"]");
+
                 
                 for(int i=0; i < myParamList.getSize(); i++){
                     if(myParamList.getList().get(i) == myVar){
@@ -738,7 +758,7 @@ public class Compiler {
 	private Parameter paramDec() {
             
             Type t = type();
-                       
+                                   
             if(lexer.token == Symbol.COMMA){
                 signalError.show("missing parameter");
             }
@@ -750,7 +770,11 @@ public class Compiler {
             String str = lexer.getStringValue();
             lexer.nextToken();
             
-            return new Parameter(str, t);
+            Parameter myParam = new Parameter(str, t);
+            
+            symbolTable.putInLocal(str, myParam );
+            
+            return myParam;
         }
 
 
@@ -1283,9 +1307,9 @@ public class Compiler {
             }
 
             lexer.nextToken();
+            System.out.println("EXPRLIST TAMANHO - [" +1+ "]"+ "Valor de lexer" + lexer.token.name());
+
             ExprList myExprList = exprList();
-            
-            System.out.println("EXPRLIST TAMANHO - [" +myExprList.getSize()+ "]");
             
             Iterator<Expr> myIteratorExpr = myExprList.elements();
             while (myIteratorExpr.hasNext()) {
@@ -1303,6 +1327,7 @@ public class Compiler {
 
             }
             
+            System.out.println("Valor de lexer " + lexer.token);
 
             if ( lexer.token != Symbol.RIGHTPAR ){
                 signalError.show(") expected");
@@ -1316,7 +1341,7 @@ public class Compiler {
            
             lexer.nextToken();
             
-            System.out.println("Tamanho de ExprList ["+myExprList.getSize()+"] e valor do token ["+lexer.token.name()+"]");
+            //System.out.println("Tamanho de ExprList ["+myExprList.getSize()+"] e valor do token ["+lexer.token.name()+"]");
             
             return new WriteStatement(myExprList);
 	}
@@ -1398,14 +1423,13 @@ public class Compiler {
             ExprList anExprList = new ExprList();
             
             e = expr();
-            if(e!=null) System.out.println("Valor de E em EXPRLIST - [" +e.toString()+ "]");
+            //if(e!=null) System.out.println("Valor de E em EXPRLIST - [" +e.toString()+ "]");
 
             anExprList.addElement(e);
 
             while (lexer.token == Symbol.COMMA) {
                     lexer.nextToken();
                     e = expr();
-                    if(e!=null) System.out.println("Valor de E em EXPRLIST - [" +e.toString()+ "]");
                     anExprList.addElement(e);
             }
                     

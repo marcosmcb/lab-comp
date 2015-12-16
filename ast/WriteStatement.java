@@ -24,10 +24,13 @@ public class WriteStatement extends Statement {
         while(iterator.hasNext())
         {
             Expr element = iterator.next();
-            if(element.getType().equals(Type.stringType))
+            
+            System.out.println("VALOR EM WRITE STMT GEN C FUNCIONA PELO AMOR DE DEUS - " + element.toString());
+            
+            if(element.getType() == Type.stringType )
             {
                 pw.printIdent("puts(\"");
-             
+                
                 element.genC(pw, false);
                 pw.println("\");");
             }
