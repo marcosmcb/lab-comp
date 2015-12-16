@@ -84,13 +84,28 @@ public class MessageSendToVariable extends MessageSend {
         
         if(myExprList!=null)
         {
-            pw.print(", ");
-            for(int i=0; i < myExprList.getExprList().size(); i++) myExprList.getExprList().get(i).genC(pw, putParenthesis);
-        }   
+            for(int i=0; i < myExprList.getExprList().size(); i++)
+            {
+                pw.print(", ");
+                pw.print(myExprList.getExprList().get(i).getType().getCname());
+            }
+        }
+        
         pw.print(") ) _"+ myVar.getName()+"->vt[");
         
         pw.print(Integer.toString(getIndexMethod( kra ,myMethod )));
-        pw.print("]) (_"+myVar.getName()+")");
+        pw.print("]) (_"+myVar.getName());
+        
+        if(myExprList!=null)
+        {
+            for(int i=0; i < myExprList.getExprList().size(); i++)
+            {
+                pw.print(", ");
+                myExprList.getExprList().get(i).genC(pw, putParenthesis);
+            }
+        }
+        
+        pw.print(")");
     }
     
     @Override

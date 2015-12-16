@@ -30,6 +30,7 @@ public class WhileStatement extends Statement {
         pw.println(" ){");
         pw.add();
         
+        if(state1!=null)
             this.state1.genC(pw);
       
         

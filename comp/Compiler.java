@@ -441,28 +441,26 @@ public class Compiler {
             boolean found = false;
             
             
-            /*
-            We still gotta check whether the variable is part of our instances variable or not,
-            if it is from a different class, thats ok the declaration
-             */
+            
+            //We still gotta check whether the variable is part of our instances variable or not,
+            //if it is from a different class, thats ok the declaration
+             
             for (InstanceVariable myInstanceList1 : myInstanceList) {
                 if (myInstanceList1.getName().equals(name)) {
-                    //signalError.show("Variable '"+ name +"' is being redeclared");
+                    signalError.show("Variable '"+ name +"' is being redeclared");
                     found = true;
                 }
             }
-            /*
+            
             if(found==false){
                 for(int j=0; j < this.currentKRA.getInstanceVariableList().size(); j++){
-                    for( int i=0; i < this.currentKRA.getInstanceVariableList().get(j).getList().size() ; i++){
-                        if(this.currentKRA.getInstanceVariableList().get(j).getList().get(i).getName().equals(name)){
-                            //signalError.show("Variable '"+ name +"' is being redeclared");
-                            found = true;
-                        }
+                    if(this.currentKRA.getInstanceVariableList().get(j).getName().equals(name)){
+                        signalError.show("Variable '"+ name +"' is being redeclared");
+                        found = true;
                     }
                 }
             }
-            */
+            
             myInstanceList.add(new InstanceVariable(name, myType)  );
            
             
@@ -478,22 +476,20 @@ public class Compiler {
                                 
                 for (InstanceVariable myInstanceList1 : myInstanceList) {
                     if (myInstanceList1.getName().equals(name)) {
-                        //signalError.show("Variable '"+ name +"' is being redeclared");
+                        signalError.show("Variable '"+ name +"' is being redeclared");
                         found = true;
                     }
                 }
-                /*
+                
                 if(found==false){
                     for(int j=0; j < this.currentKRA.getInstanceVariableList().size(); j++){
-                        for( int i=0; i < this.currentKRA.getInstanceVariableList().get(j).getList().size() ; i++){
-                            if(this.currentKRA.getInstanceVariableList().get(j).getList().get(i).getName().equals(name)){
-                                //signalError.show("Variable '"+ name +"' is being redeclared");
-                                found = true;
-                            }
-                        }
+                        if(this.currentKRA.getInstanceVariableList().get(j).getName().equals(name)){
+                            signalError.show("Variable '"+ name +"' is being redeclared");
+                            found = true;
+                        }     
                     }
                 }
-                */
+                
                 myInstanceList.add(new InstanceVariable(name, myType)  );
                    
                 lexer.nextToken();
@@ -560,18 +556,16 @@ public class Compiler {
                     }
                 }
             }
-/*
+
             if(myKraClass.getInstanceVariableList()  != null){
                 for(int k=0; k < myKraClass.getInstanceVariableList().size(); k++){
-                    for(int i=0; i < myKraClass.getInstanceVariableList().get(k).getList().size(); i++){
-                        if( myKraClass.getInstanceVariableList().get(k).getList().get(i).getName().equals(name) ){
-                            signalError.show("Method '" + name + "' has name equal to an instance variable");
-                        }
+                    if( myKraClass.getInstanceVariableList().get(k).getName().equals(name) ){
+                        signalError.show("Method '" + name + "' has name equal to an instance variable");
                     }
                 }
                 
             }
-            */
+            
             
             if(myKraClass.getPrivateMethods() != null){
                 if (qualifier == Symbol.PUBLIC) {                    
@@ -608,12 +602,6 @@ public class Compiler {
             
             if ( lexer.token != Symbol.RIGHTPAR ){
                 myParamList = formalParamDec();
-                
-                /*if(myParamList!=null)
-                    for(int i=0; i < myParamList.getSize(); i++)
-                        System.out.println("Valor de Parametro em MethodDEC - " + myParamList.getList().get(i).getName() + "COM TIPO ["+myParamList.getList().get(i).getType().getCname()+"]");
-                */
-                
             }
             
             if(name.equals("run") && className.equals("Program") && !myParamList.getList().isEmpty() ){
@@ -708,7 +696,7 @@ public class Compiler {
                 v = new Variable(lexer.getStringValue(), type);
                 
                 if(symbolTable.getInLocal(lexer.getStringValue()) != null){
-                    //signalError.show("Variable '" + lexer.getStringValue() + "' is being redeclared");
+                    signalError.show("Variable '" + lexer.getStringValue() + "' is being redeclared");
                 }else{
                     symbolTable.putInLocal(lexer.getStringValue(), v);
                     myLocalVarList.addElement(v);
@@ -804,7 +792,7 @@ public class Compiler {
                             // IDENT deve ser uma classe.
                             result = symbolTable.getInGlobal( lexer.getStringValue() ); 
                             
-                            //if(result == null)  signalError.show(lexer.getStringValue() + "is not a type");
+                            if(result == null)  signalError.show(lexer.getStringValue() + "is not a type");
                             
                             break;
                     default:
