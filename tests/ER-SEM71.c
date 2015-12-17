@@ -14,7 +14,7 @@ typedef struct _St_Program {
 
 _class_Program*new_Program(void);
     void _Program_set () { 
- =    0;
+this->_Program_x =    0;
 }
     void _Program_run (_class_Program *this) { 
 }

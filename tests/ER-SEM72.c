@@ -15,7 +15,7 @@ _class_Program*new_Program(void);
     void _Program_m (_class_Program *this) { 
 }
     void _Program_set () { 
-   ( (void (*) (_class_Program *)) this->vt[0]) ((_class_Program*) this);
+   ( (void (*)(_class_Program * ))  this->vt[-1]) ( (_class_Program *) this);
 }
     void _Program_run (_class_Program *this) { 
 }

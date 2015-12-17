@@ -14,12 +14,12 @@ typedef struct _St_A {
 
 _class_A*new_A(void);
     void _A_m1 (_class_A *this, int _n) { 
- =    1;
-   printf("%d ",);
+this->_A_k =    1;
+   printf("%d ",this->_A_k);
    printf("%d ",_n);
 }
     int _A_getK (_class_A *this) { 
-return ;
+return this->_A_k;
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_m1
@@ -37,25 +37,24 @@ return t;
 
 typedef struct _St_B {
       Func *vt;
-      int       _null_k;      
+      int       _A_k;      
       int       _B_k;      
 } _class_B;
 
 _class_B*new_B(void);
        void _B_m2 (_class_B *this, int _n) { 
- =       2;
-      _A_m1( (_class_A *) this, _n );
-      printf("%d ",);
+this->_B_k =       2;
+      _A_m1( (_class_A *) this,       1 );
+      printf("%d ",this->_B_k);
       printf("%d ",_n);
 }
        int _B_getK (_class_B *this) { 
-return ;
+return this->_B_k;
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_m1
-,         ( void (*)() ) _A_getK
-,( void (*)() ) _B_m2
+( void (*)() ) _A_m1
 ,( void (*)() ) _B_getK
+,( void (*)() ) _B_m2
 
 };
 
@@ -69,25 +68,26 @@ return t;
 
 typedef struct _St_C {
          Func *vt;
-         int          _null_k;         
+         int          _B_k;         
+         int          _A_k;         
 } _class_C;
 
 _class_C*new_C(void);
           void _C_m3 (_class_C *this, int _n) { 
-         _B_m2( (_class_B *) this, _n );
+         _B_m2( (_class_B *) this,          2 );
          printf("%d ",         3);
          printf("%d ",_n);
 }
           void _C_m4 (_class_C *this, int _n) { 
-         ;
+         ( (void (*)(_class_C *,int ))  this->vt[4]) ( (_class_C *) this,         3);
          printf("%d ",         4);
          printf("%d ",_n);
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_m2
-,            ( void (*)() ) _B_getK
-,            ( void (*)() ) _A_m1
-,            ( void (*)() ) _A_getK
+( void (*)() ) _B_m2
+,( void (*)() ) _B_getK
+,( void (*)() ) _A_m1
+,( void (*)() ) _A_getK
 ,( void (*)() ) _C_m3
 ,( void (*)() ) _C_m4
 
@@ -113,7 +113,7 @@ _class_C *_c;
             puts("The output should be :");
             puts("1 1 2 2 3 3 4 4");
 _c = new_C();
-            ( (void (*) (_class_C *, int) ) _c->vt[1]) (_c,             4);
+            ( (void (*) (_class_C *, int) ) _c->vt[5]) (_c,             4);
 }
 Func VTclass_Program[] = {
 ( void (*)() ) _Program_run

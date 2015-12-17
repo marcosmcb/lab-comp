@@ -15,15 +15,15 @@ typedef struct _St_A {
 _class_A*new_A(void);
     void _A_put (_class_A *this, int _xint _yboolean _ok) { 
 if ( (_x > _y   ) && _ok ){
- =    0;
+this->_A_i =    0;
 }
 
 }
     int _A_get (_class_A *this) { 
-return ;
+return this->_A_i;
 }
     void _A_set (_class_A *this, int _i) { 
- = _i;
+this->_A_i = _i;
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_put
@@ -42,7 +42,7 @@ return t;
 
 typedef struct _St_B {
       Func *vt;
-      int       _null_i;      
+      int       _A_i;      
 } _class_B;
 
 _class_B*new_B(void);
@@ -53,10 +53,9 @@ if ( ((_a + _b      ) <       1      ) && !_c ){
 
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_put
-,         ( void (*)() ) _A_get
-,         ( void (*)() ) _A_set
-,( void (*)() ) _B_put
+( void (*)() ) _B_put
+,( void (*)() ) _A_get
+,( void (*)() ) _A_set
 
 };
 

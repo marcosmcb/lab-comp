@@ -29,6 +29,16 @@ public class KraClass extends Type {
    private ArrayList<InstanceVariable> instanceVariableList = new ArrayList<>();
    private ArrayList<MethodDec> privateMethods =  new ArrayList<>();
    private ArrayList<MethodDec> publicMethods =  new ArrayList<>();
+   
+    private ArrayList<MethodDec> publicMethodsAllPrint =  new ArrayList<>();
+
+    public ArrayList<MethodDec> getPublicMethodsAllPrint() {
+        return publicMethodsAllPrint;
+    }
+
+    public void setPublicMethodsAllPrint(ArrayList<MethodDec> publicMethodsAllPrint) {
+        this.publicMethodsAllPrint = publicMethodsAllPrint;
+    }
 
     public ArrayList<InstanceVariable> getInstanceVariableList() {
         return instanceVariableList;
@@ -45,7 +55,8 @@ public class KraClass extends Type {
     public MethodDec getPublicMethod(String pub){
  
         for (MethodDec publicMethod : publicMethods) 
-           if (publicMethod.getName().equals(pub))  return publicMethod;
+           if (publicMethod.getName().equals(pub))  
+               return publicMethod;
                
         return null;
     }
@@ -53,7 +64,8 @@ public class KraClass extends Type {
     public MethodDec getPrivateMethod(String pub){
  
         for (MethodDec privateMethod : publicMethods) 
-           if (privateMethod.getName().equals(pub))  return privateMethod;
+           if (privateMethod.getName().equals(pub))  
+               return privateMethod;
                
         return null;
     }
@@ -130,22 +142,21 @@ public class KraClass extends Type {
         
         if(getHasSuper())   
         {
-            if( !this.superclass.getInstanceVariableList().isEmpty() )
-                for (InstanceVariable instanceVariableList1 : this.superclass.instanceVariableList) {
-                    pw.printIdent( instanceVariableList1.getType().getName() );
-                    pw.printIdent(" _" + this.superclass.name + "_"+ instanceVariableList1.getName() +";");
-                    pw.printlnIdent("");
-                }
+            
+            printSuperClassesInstanceVariables(pw);
+            
         }
         
         if(!this.getInstanceVariableList().isEmpty())
+        {
             for (InstanceVariable instanceVariableList1 : this.getInstanceVariableList()) 
             {
+                
                 pw.printIdent( instanceVariableList1.getType().getName() );
-                pw.printIdent(" _" + this.getName() + "_" + instanceVariableList1.getName() + ";");
+                pw.printIdent(" _" + this.getCname() + "_" + instanceVariableList1.getName() + ";");
                 pw.printlnIdent("");
             }
-        
+        }
         pw.println("} _class_"+ this.getName()+";");
         pw.println("");
         //if class is not abstract, falta verificar
@@ -155,8 +166,10 @@ public class KraClass extends Type {
         */
         
       
-           
-   
+        if( this.hasSuper )     
+            addSuperClassesMethods();
+        
+        addCurrentClassMethods();
           
         
         
@@ -180,18 +193,30 @@ public class KraClass extends Type {
         pw.println("Func VTclass_"+this.getCname()+"[] = {");
         pw.add();
         
-        if( this.hasSuper )     printSuperClassesMethods(pw);
+        //if( this.hasSuper ){
+        //    printSuperClassesMethods(pw);
+        //}
+        
         
         int quant = 0;
-        for (MethodDec publicMethod : this.publicMethods) {
-               if(quant == 0)
-                   pw.println("( void (*)() ) _"+this.getCname()+"_"+publicMethod.getName());
-               else{
-               pw.println(",( void (*)() ) _"+this.getCname()+"_"+publicMethod.getName());
-     
-               }               
+        for (MethodDec publicMethod : this.publicMethodsAllPrint) 
+        {            
+            //if (this.hasSuper) 
+            //    quant++;
+            
+            if(quant == 0)
+                pw.println("( void (*)() ) _"+publicMethod.getKra().getCname()+"_"+publicMethod.getName());
+            else
+            {
+                pw.print(",");
+                pw.println("( void (*)() ) _"+publicMethod.getKra().getCname()+"_"+publicMethod.getName());
+            }
             quant++;
         }
+        
+        
+        
+        
         
         
         
@@ -218,16 +243,114 @@ public class KraClass extends Type {
           
     }
     
+    
+    public int findOccurrences( MethodDec me )
+    {
+        int count=0;
+        for (MethodDec publicMethodsAllPrint1 : this.publicMethodsAllPrint) {
+            if (publicMethodsAllPrint1.getName().equals(me.getName())) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    
+    void printSuperClassesInstanceVariables(PW pw)
+    {
+        KraClass kraAux = this.superclass;
+        int quant=0;
+        do
+        {
+            if( !kraAux.getInstanceVariableList().isEmpty() )
+            {
+                for (InstanceVariable instance : kraAux.getInstanceVariableList()) 
+                {
+                    pw.printIdent( instance.getType().getName() );
+                    pw.printIdent(" _" + kraAux.getCname() + "_"+ instance.getName() +";");
+                    pw.printlnIdent("");     
+                }
+            }
+            
+            
+            if(kraAux.hasSuper)     kraAux = kraAux.superclass;
+            else    break;
+            
+        }while(true);
+    }
+    
+    
     void printSuperClassesMethods(PW pw)
     {
         KraClass kraAux = this.superclass;
-        
+        int quant=0;
         do
         {
             if( !kraAux.getPublicMethods().isEmpty() )
                 for (MethodDec publicMethod : kraAux.getPublicMethods()) 
-                    if(publicMethod.getIsFinal() == null)   
-                        pw.printlnIdent("( void (*)() ) _"+kraAux.getName()+"_"+publicMethod.getName());
+                {
+                    System.out.println("Nome do METODO == === = = == == ==="+publicMethod.getName());
+                    if(publicMethod.getIsFinal() == null)
+                    {
+                        
+                        //if(findOccurrences(publicMethod) == 1 )
+                        //{
+                            if(quant == 0)
+                                pw.printlnIdent("( void (*)() ) _"+kraAux.getName()+"_"+publicMethod.getName());
+                            else
+                            {
+                                pw.print(",");
+                                pw.printlnIdent("( void (*)() ) _"+kraAux.getName()+"_"+publicMethod.getName());
+                            }
+                            quant++;
+                        //}
+                    }
+                }
+            
+            if(kraAux.hasSuper)     kraAux = kraAux.superclass;
+            else    break;
+            
+        }while(true);
+    }
+    
+    void addCurrentClassMethods()
+    {
+    
+        for (MethodDec publicMethod : this.publicMethods) 
+        {
+            //publicMethodsAllPrint.add( publicMethod );
+            boolean found = false;
+            for(int i=0; i < this.publicMethodsAllPrint.size(); i++)
+            {
+                if(this.publicMethodsAllPrint.get(i).getName().equals(publicMethod.getName()))
+                {
+                    found = true;
+                    this.publicMethodsAllPrint.remove(i);
+                    this.publicMethodsAllPrint.add(i, publicMethod);
+                }
+            }
+            
+            if( !found ) 
+            {
+                this.publicMethodsAllPrint.add(publicMethod);
+            }
+        }
+    }
+    
+    void addSuperClassesMethods()
+    {
+        KraClass kraAux = this.superclass;
+        int quant=0;
+        do
+        {
+            if( !kraAux.getPublicMethods().isEmpty() )
+                for (MethodDec publicMethod : kraAux.getPublicMethods()) 
+                {
+                    if(publicMethod.getIsFinal() == null){
+                        publicMethodsAllPrint.add( publicMethod );
+                    }
+                }
             
             if(kraAux.hasSuper)     kraAux = kraAux.superclass;
             else    break;

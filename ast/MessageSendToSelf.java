@@ -18,11 +18,14 @@ public class MessageSendToSelf extends MessageSend {
     @Override
     public Type getType() { 
         
-        if (myInstanceVariable == null && myMethod == null)         return myKraClass;
+        if (myInstanceVariable == null && myMethod == null)         
+            return myKraClass;
         
-        else if (myInstanceVariable != null && myMethod == null)    return myInstanceVariable.getType();
+        else if (myInstanceVariable != null && myMethod == null)    
+            return myInstanceVariable.getType();
         
-        else                                                        return myMethod.getType();
+        else                                                        
+            return myMethod.getType();
         
     }
     
@@ -33,28 +36,63 @@ public class MessageSendToSelf extends MessageSend {
     @Override
     public void genC( PW pw, boolean putParenthesis ) 
     {
+                    System.out.println("CHEGUEI AQUI AQUI AQUI CHEGUEI TO AKI CHEGUEI CHEGUEI - ");
+
+        if(myInstanceVariable==null && myMethod==null && myExprList==null)      
+            pw.print("this");
         
-        if(myInstanceVariable==null && myMethod==null && myExprList==null)      pw.print("this");
+        else if(myInstanceVariable!=null && myKraClass!=null)
+        {
+            //   this->_A_k = 1;
+
+            pw.print("this->_"+myKraClass.getCname()+"_"+myInstanceVariable.getName());
+        }
         
-        else if(myExprList==null && myInstanceVariable == null)     
+        else if(myInstanceVariable == null)     
         {    
-            pw.print("( (" + myMethod.getType().getName() + " (*) (_class_" + myKraClass.getName()  + " *)) this->vt[");
-            pw.print( Integer.toString( getIndexMethod(myKraClass, myMethod) ) );
-            pw.print("]) ((_class_" + myKraClass.getName() + "*) this)");
+            //   ( (void (*)(_class_C *,int )) this->vt[2])( (_class_C *) this, 3 );
+            
+            pw.print( "( (" + myMethod.getType().getCname() + " (*)" + "(_class_" + myKraClass.getName() + " *" );
+            
+            if(myExprList!=null)
+            for(int i=0; i < myExprList.getSize(); i++)
+            {
+                pw.print(",");
+                pw.print(myExprList.getAt(i).getType().getCname());
+            }
+            
+            pw.print(" )) ");
+            
+            pw.print(" this->vt[" + getIndexMethod(myKraClass, myMethod) + "])");
+            
+            pw.print(" ( (_class_" + myKraClass.getName() + " *) this"  );
+            
+            if(myExprList!=null)
+            for(int i=0; i < myExprList.getSize(); i++)
+            {
+                pw.print(",");
+                myExprList.getAt(i).genC(pw, putParenthesis);
+            }
+            
+            pw.print(")");
+            
         }   
         
     }
     
     public int getIndexMethod(KraClass myKra, MethodDec myMeth)
     {
-        for (int i=0; i < myKra.getPublicMethods().size(); i++)
-            if(myKra.getPublicMethods().get(i).getName().equals(myMeth.getName()))
+        System.out.println("TAmanho da lista  - --------- " + myKra.getPublicMethodsAllPrint().size());
+
+        for (int i=0; i < myKra.getPublicMethodsAllPrint().size() ; i++)
+        {    
+            System.out.println("NOME DO METOD NO GET INDEX METHOD  - --------- " + myKra.getPublicMethodsAllPrint().get(i).getName());
+
+            if(myKra.getPublicMethodsAllPrint().get(i).getName().equals(myMeth.getName()))
+            {
                 return i;
-        
-        for (int i=0; i < myKra.getPrivateMethods().size(); i++)
-            if(myKra.getPrivateMethods().get(i).getName().equals(myMeth.getName()))
-                return i;
-        
+            }
+        }
         return -1;
     }
     

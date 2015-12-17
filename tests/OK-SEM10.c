@@ -35,7 +35,7 @@ _class_B*new_B(void);
        void _B_second (_class_B *this) { 
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_first
+( void (*)() ) _A_first
 ,( void (*)() ) _B_second
 
 };
@@ -56,8 +56,8 @@ _class_C*new_C(void);
           void _C_third (_class_C *this) { 
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_second
-,            ( void (*)() ) _A_first
+( void (*)() ) _B_second
+,( void (*)() ) _A_first
 ,( void (*)() ) _C_third
 
 };
@@ -83,11 +83,11 @@ _a = new_A();
 _b = new_B();
 _c = new_C();
             ( (void (*) (_class_A *, int) ) _a->vt[0]) (_a,             0);
-            ( (void (*) (_class_B *, int) ) _b->vt[-1]) (_b,             0);
-            ( (void (*) (_class_C *, int) ) _c->vt[-1]) (_c,             0);
-            ( (void (*) (_class_B *) ) _b->vt[0]) (_b);
-            ( (void (*) (_class_C *) ) _c->vt[-1]) (_c);
+            ( (void (*) (_class_B *, int) ) _b->vt[0]) (_b,             0);
+            ( (void (*) (_class_C *, int) ) _c->vt[1]) (_c,             0);
+            ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
             ( (void (*) (_class_C *) ) _c->vt[0]) (_c);
+            ( (void (*) (_class_C *) ) _c->vt[2]) (_c);
 _a = _b;
 _a = _c;
 _b = _c;

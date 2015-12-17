@@ -14,10 +14,10 @@ typedef struct _St_A {
 
 _class_A*new_A(void);
     void _A_set (_class_A *this, int _pn) { 
- = _pn;
+this->_A_n = _pn;
 }
     int _A_get (_class_A *this) { 
-return ;
+return this->_A_n;
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_set
@@ -35,7 +35,7 @@ return t;
 
 typedef struct _St_B {
       Func *vt;
-      int       _null_n;      
+      int       _A_n;      
 } _class_B;
 
 _class_B*new_B(void);
@@ -44,9 +44,8 @@ _class_B*new_B(void);
       _A_set( (_class_A *) this, _pn );
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_set
-,         ( void (*)() ) _A_get
-,( void (*)() ) _B_set
+( void (*)() ) _B_set
+,( void (*)() ) _A_get
 
 };
 

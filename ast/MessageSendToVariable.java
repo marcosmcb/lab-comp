@@ -48,14 +48,11 @@ public class MessageSendToVariable extends MessageSend {
     
     public int getIndexMethod(KraClass myKra, MethodDec myMeth)
     {
-        for (int i=0; i < myKra.getPublicMethods().size(); i++)
-            if(myKra.getPublicMethods().get(i).getName().equals(myMeth.getName()))
-                return i;
         
-        for (int i=0; i < myKra.getPrivateMethods().size(); i++)
-            if(myKra.getPrivateMethods().get(i).getName().equals(myMeth.getName()))
+        for (int i=0; i < myKra.getPublicMethodsAllPrint().size(); i++)
+            if(myKra.getPublicMethodsAllPrint().get(i).getName().equals(myMeth.getName()))
                 return i;
-        
+       
         return -1;
     }
     
@@ -93,12 +90,12 @@ public class MessageSendToVariable extends MessageSend {
         
         pw.print(") ) _"+ myVar.getName()+"->vt[");
         
-        pw.print(Integer.toString(getIndexMethod( kra ,myMethod )));
+        pw.print(Integer.toString(getIndexMethod( kra, myMethod )));
         pw.print("]) (_"+myVar.getName());
         
         if(myExprList!=null)
         {
-            for(int i=0; i < myExprList.getExprList().size(); i++)
+            for(int i = 0; i < myExprList.getExprList().size(); i++)
             {
                 pw.print(", ");
                 myExprList.getExprList().get(i).genC(pw, putParenthesis);

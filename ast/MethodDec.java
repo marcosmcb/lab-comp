@@ -126,7 +126,8 @@ public class MethodDec {
         
         pw.println(") { ");
         
-        this.statementlist.genC(pw);
+        if(statementlist != null)
+            this.statementlist.genC(pw);
         
         pw.println("}");
 

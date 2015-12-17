@@ -14,13 +14,13 @@ typedef struct _St_A {
 
 _class_A*new_A(void);
     int _A_get (_class_A *this) { 
-return ;
+return this->_A_n;
 }
     void _A_set (_class_A *this, int _n) { 
- = _n;
+this->_A_n = _n;
 }
     void _A_m1 (_class_A *this) { 
-   printf("%d ",);
+   printf("%d ",this->_A_n);
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_get
@@ -39,16 +39,16 @@ return t;
 
 typedef struct _St_B {
       Func *vt;
-      int       _null_n;      
+      int       _A_n;      
 } _class_B;
 
 _class_B*new_B(void);
        void _B_m2 (_class_B *this) { 
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_get
-,         ( void (*)() ) _A_set
-,         ( void (*)() ) _A_m1
+( void (*)() ) _A_get
+,( void (*)() ) _A_set
+,( void (*)() ) _A_m1
 ,( void (*)() ) _B_m2
 
 };
@@ -63,6 +63,7 @@ return t;
 
 typedef struct _St_C {
          Func *vt;
+         int          _A_n;         
 } _class_C;
 
 _class_C*new_C(void);
@@ -70,13 +71,12 @@ _class_C*new_C(void);
          printf("%d ",         8);
 }
           void _C_teste (_class_C *this) { 
-         _B_m1( (_class_B *) this,  );
+         _B_m1( (_class_B *) this );
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_m2
-,            ( void (*)() ) _A_get
-,            ( void (*)() ) _A_set
-,            ( void (*)() ) _A_m1
+( void (*)() ) _B_m2
+,( void (*)() ) _A_get
+,( void (*)() ) _A_set
 ,( void (*)() ) _C_m1
 ,( void (*)() ) _C_teste
 
@@ -92,6 +92,7 @@ return t;
 
 typedef struct _St_D {
             Func *vt;
+            int             _A_n;            
 } _class_D;
 
 _class_D*new_D(void);
@@ -99,12 +100,11 @@ _class_D*new_D(void);
             printf("%d ",            9);
 }
 Func VTclass_D[] = {
-               ( void (*)() ) _C_m1
-,               ( void (*)() ) _C_teste
-,               ( void (*)() ) _B_m2
-,               ( void (*)() ) _A_get
-,               ( void (*)() ) _A_set
-,               ( void (*)() ) _A_m1
+( void (*)() ) _D_m1
+,( void (*)() ) _C_teste
+,( void (*)() ) _B_m2
+,( void (*)() ) _A_get
+,( void (*)() ) _A_set
 ,( void (*)() ) _D_m1
 
 };
@@ -129,8 +129,8 @@ _class_D *_d;
                puts("The output should be :");
                puts("0");
 _d = new_D();
-               ( (void (*) (_class_D *, int) ) _d->vt[-1]) (_d,                0);
-               ( (void (*) (_class_D *) ) _d->vt[-1]) (_d);
+               ( (void (*) (_class_D *, int) ) _d->vt[4]) (_d,                0);
+               ( (void (*) (_class_D *) ) _d->vt[1]) (_d);
 }
 Func VTclass_Program[] = {
 ( void (*)() ) _Program_run

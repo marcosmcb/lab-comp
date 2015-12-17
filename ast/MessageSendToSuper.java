@@ -52,22 +52,22 @@ public class MessageSendToSuper extends MessageSend {
         
         pw.print("_"+myKraClass.getName()+"_"+myMethod.getName()+"( (_class_"+myKraClass.getName()+" *) this");
         
-        if(myMethod.getPl().getSize() > 0)
+        /*if(myMethod.getPl() != null)
         { 
             pw.print(", ");
-            myMethod.getPl().genC(pw);
-        }
+            myMethod.getPl().genCNameVar(pw);
+        }*/
         
-        if(myExprList.getExprList().size() > 0)
-        {
-            pw.print(",");
-            
-            for(int i=0; i < myExprList.getExprList().size(); i++)  
+        if(myExprList!=null)
+
+            for(int i=0; i < myExprList.getSize(); i++)
+            {
+                pw.print(", ");
                 myExprList.getExprList().get(i).genC(pw, putParenthesis);
-            
-        }
+
+            }
         
-        pw.print(" );");
+        pw.print(" )");
     }
 
     @Override

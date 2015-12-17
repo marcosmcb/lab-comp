@@ -15,11 +15,11 @@ typedef struct _St_A {
 _class_A*new_A(void);
     void _A_set (_class_A *this, int _pn) { 
 int _n;
- = _pn;
+this->_A_n = _pn;
 }
     int _A_put (_class_A *this, int _nString _set) { 
 boolean _put;
- = _n;
+this->_A_n = _n;
 return _n;
 }
 Func VTclass_A[] = {

@@ -39,11 +39,10 @@ typedef struct _St_B {
 _class_B*new_B(void);
        void _B_m2 (_class_B *this, int _n) { 
       printf("%d ",_n);
-      _A_m2( (_class_A *) this, _n );
+      _A_m2( (_class_A *) this, _n +       1 );
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_m1
-,         ( void (*)() ) _A_m2
+( void (*)() ) _A_m1
 ,( void (*)() ) _B_m2
 
 };
@@ -62,19 +61,18 @@ typedef struct _St_C {
 
 _class_C*new_C(void);
           void _C_m1 (_class_C *this) { 
-         _B_m1( (_class_B *) this,  );
+         _B_m1( (_class_B *) this );
          printf("%d ",         2);
 }
           void _C_m3 (_class_C *this) { 
-         ( (void (*) (_class_C *)) this->vt[0]) ((_class_C*) this);
+         ( (void (*)(_class_C * ))  this->vt[1]) ( (_class_C *) this);
          printf("%d ",         1);
          printf("%d ",         2);
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_m2
-,            ( void (*)() ) _A_m1
-,            ( void (*)() ) _A_m2
+( void (*)() ) _B_m2
 ,( void (*)() ) _C_m1
+,( void (*)() ) _A_m2
 ,( void (*)() ) _C_m3
 
 };
@@ -101,10 +99,10 @@ _class_C *_c;
             puts("The output should be :");
             puts("1 2 1 2 1 2 1 2");
 _b = new_B();
-            ( (void (*) (_class_B *, int) ) _b->vt[0]) (_b,             1);
+            ( (void (*) (_class_B *, int) ) _b->vt[1]) (_b,             1);
 _c = new_C();
-            ( (void (*) (_class_C *) ) _c->vt[0]) (_c);
             ( (void (*) (_class_C *) ) _c->vt[1]) (_c);
+            ( (void (*) (_class_C *) ) _c->vt[3]) (_c);
 }
 Func VTclass_Program[] = {
 ( void (*)() ) _Program_run

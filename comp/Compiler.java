@@ -247,6 +247,7 @@ public class Compiler {
                     
                     KraClass superClassAux = symbolTable.getInGlobal(superclassName);
                     
+                    
                     if(superClassAux != null && !superClassAux.getIsFinal() )
                     {
                         myKraClass.setSuperclass(superClassAux);
@@ -329,7 +330,7 @@ public class Compiler {
                    
                     if (qualifier == Symbol.PUBLIC){
                         MethodDec myPublicMethod = methodDec(className, t, name, qualifier, qualifierStatic, qualifierFinal);
-                         myPublicMethod.setClass(myKraClass);
+                        myPublicMethod.setClass(myKraClass);
                         myKraClass.addMethodToPublicList(myPublicMethod);
                     }
                    
@@ -370,7 +371,7 @@ public class Compiler {
             
             return myKraClass;
 	}
-        
+                
         private void checkMethodSuper(KraClass subClass){
             boolean checkParamTypes = false;
             KraClass auxSuper = symbolTable.getInGlobal( subClass.getSuperclass().getName());
@@ -439,8 +440,7 @@ public class Compiler {
             Type myType = type;
             Variable myVar;
             boolean found = false;
-            
-            
+           
             
             //We still gotta check whether the variable is part of our instances variable or not,
             //if it is from a different class, thats ok the declaration
@@ -1060,6 +1060,8 @@ public class Compiler {
             if ( startExpr(lexer.token) ) {
                 anExprList = exprList();
             }
+            
+            if(anExprList==null)    System.out.println("NULO EXPRLIST ESTA NULLO");
 
             if ( lexer.token != Symbol.RIGHTPAR ) {
                 signalError.show(") expected");
@@ -1677,13 +1679,16 @@ public class Compiler {
                             if (!isThereMethodInClass(this.currentKRA.getSuperclass(), messageName))
                                 signalError.show("Method '"+messageName+"' was not found in class '"+this.currentKRA.getName()+"' or its superclasses");
                         
+                        MethodDec myMethod1 = findMethod(currentKRA, messageName);
 			/*
 			 * para fazer as confer�ncias sem�nticas, procure por 'messageName'
 			 * na superclasse/superclasse da superclasse etc
 			 */
 			lexer.nextToken();
 			exprList = realParameters();
-			break;
+			
+                        return new MessageSendToSuper( myMethod1 , exprList, currentKRA.getSuperclass());
+                        
                 /*
                 * PrimaryExpr ::=  
                 * Id  |
@@ -1794,7 +1799,7 @@ public class Compiler {
                                         
 				}
 			}
-			break;
+			;
 		case THIS:
 			/*
 			 * Este 'case THIS:' trata os seguintes casos: 
@@ -1815,9 +1820,13 @@ public class Compiler {
 			else {
 				lexer.nextToken();
 				
-                                if ( lexer.token != Symbol.IDENT )  signalError.show("Identifier expected");
+                                if ( lexer.token != Symbol.IDENT )  
+                                    signalError.show("Identifier expected");
 				
                                 ident = lexer.getStringValue();
+                                
+                                //System.out.println("CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ?");
+                                //System.out.println("VALOR DO IDENT ====="+ident);
                                 
 				lexer.nextToken();
 				
@@ -1830,15 +1839,21 @@ public class Compiler {
                                      */
                                     exprList = this.realParameters();
 
+                                    System.out.println("VALOR de    IDENT IDENT IDENT --------- " + ident);
+                                    
                                     MethodDec myNewMethod = findMethod(currentKRA, ident);
+                                    
+                                    System.out.println("VALOR de    IDENT IDENT METHOD --------- " + myNewMethod.getName());
+
 
                                     return new MessageSendToSelf (currentKRA, null, myNewMethod , exprList);
 				}
 				else if ( lexer.token == Symbol.DOT ) {
 					// "this" "." Id "." Id "(" [ ExpressionList ] ")"
 					lexer.nextToken();
-                                        
-					if ( lexer.token != Symbol.IDENT )  signalError.show("Identifier expected");
+
+					if ( lexer.token != Symbol.IDENT )  
+                                            signalError.show("Identifier expected");
 					
                                         lexer.nextToken();
 					
@@ -1858,17 +1873,20 @@ public class Compiler {
                                      * confira se a classe corrente realmente possui uma
                                      * vari�vel de inst�ncia 'ident'
                                      */
-                                    String nameOfIdent = lexer.getStringValue();
+                                    
+                                    System.out.println("CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ? CHEGA AQUI ?");
 
-                        //            if (currentKRA.getInstanceVariable(nameOfIdent) != null)    signalError.show("Variable not found");
 
-                                    InstanceVariable instvar = (InstanceVariable) currentKRA.getInstanceVariable(nameOfIdent);
+                                    //if (currentKRA.getInstanceVariable(ident) != null)    
+                                    //    signalError.show("Variable not found");
 
+                                    InstanceVariable instvar = (InstanceVariable) currentKRA.getInstanceVariable(ident);
+                                    
                                     return new MessageSendToSelf(currentKRA, instvar, null, null);
 				}
 			}
 		default:
-			//signalError.show("Expression expected");
+			signalError.show("Expression expected");
 		}
                 
                 return null;

@@ -48,10 +48,18 @@ public class ParamList {
     void genC(PW pw) {
         
         if(!this.getList().isEmpty())
-            for (Variable paramList1 : this.paramList) 
-                paramList1.genC(pw);
+            for (Variable var1 : this.paramList) 
+                var1.genC(pw);
         
     }
-
+    
+    void genCNameVar(PW pw) {
+        
+        if(!this.getList().isEmpty())
+            for (Variable var1 : this.paramList) 
+                var1.genCReadWrite(pw);
+        
+    }
+    
 
 }

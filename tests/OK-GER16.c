@@ -14,16 +14,16 @@ typedef struct _St_A {
 
 _class_A*new_A(void);
     int _A_get_A (_class_A *this) { 
-return ;
+return this->_A_k;
 }
     void _A_set (_class_A *this, int _k) { 
- = _k;
+this->_A_k = _k;
 }
     void _A_print (_class_A *this) { 
-   printf("%d ",( (int (*) (_class_A *)) this->vt[0]) ((_class_A*) this));
+   printf("%d ",( (int (*)(_class_A * ))  this->vt[0]) ( (_class_A *) this));
 }
     void _A_init (_class_A *this) { 
-   ;
+   ( (void (*)(_class_A *,int ))  this->vt[1]) ( (_class_A *) this,   0);
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_get_A
@@ -43,31 +43,29 @@ return t;
 
 typedef struct _St_B {
       Func *vt;
-      int       _null_k;      
+      int       _A_k;      
       int       _B_k;      
 } _class_B;
 
 _class_B*new_B(void);
        int _B_get_B (_class_B *this) { 
-return ;
+return this->_B_k;
 }
        void _B_init (_class_B *this) { 
-      _A_init( (_class_A *) this,  );
- =       2;
+      _A_init( (_class_A *) this );
+this->_B_k =       2;
 }
        void _B_print (_class_B *this) { 
-      printf("%d ",( (int (*) (_class_B *)) this->vt[0]) ((_class_B*) this));
-      printf("%d ",( (int (*) (_class_B *)) this->vt[-1]) ((_class_B*) this));
-      _A_print( (_class_A *) this,  );
+      printf("%d ",( (int (*)(_class_B * ))  this->vt[4]) ( (_class_B *) this));
+      printf("%d ",( (int (*)(_class_B * ))  this->vt[0]) ( (_class_B *) this));
+      _A_print( (_class_A *) this );
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_get_A
-,         ( void (*)() ) _A_set
-,         ( void (*)() ) _A_print
-,         ( void (*)() ) _A_init
-,( void (*)() ) _B_get_B
-,( void (*)() ) _B_init
+( void (*)() ) _A_get_A
+,( void (*)() ) _A_set
 ,( void (*)() ) _B_print
+,( void (*)() ) _B_init
+,( void (*)() ) _B_get_B
 
 };
 
@@ -81,7 +79,7 @@ return t;
 
 typedef struct _St_C {
          Func *vt;
-         int          _null_k;         
+         int          _A_k;         
 } _class_C;
 
 _class_C*new_C(void);
@@ -89,11 +87,10 @@ _class_C*new_C(void);
 return          0;
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _A_get_A
-,            ( void (*)() ) _A_set
-,            ( void (*)() ) _A_print
-,            ( void (*)() ) _A_init
-,( void (*)() ) _C_get_A
+( void (*)() ) _C_get_A
+,( void (*)() ) _A_set
+,( void (*)() ) _A_print
+,( void (*)() ) _A_init
 
 };
 
@@ -119,17 +116,17 @@ _class_C *_c;
             puts("The output should be: ");
             puts("2 2 0 0 2 0 0 0 0 0 0");
 _b = new_B();
-            ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
+            ( (void (*) (_class_B *) ) _b->vt[3]) (_b);
 _c = new_C();
-            ( (void (*) (_class_C *) ) _c->vt[-1]) (_c);
-            printf("%d ",( (int (*) (_class_B *) ) _b->vt[0]) (_b));
+            ( (void (*) (_class_C *) ) _c->vt[3]) (_c);
+            printf("%d ",( (int (*) (_class_B *) ) _b->vt[4]) (_b));
 _a = _b;
             ( (void (*) (_class_A *) ) _a->vt[2]) (_a);
             ( (void (*) (_class_B *) ) _b->vt[2]) (_b);
             ( (void (*) (_class_A *) ) _a->vt[3]) (_a);
-            ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
+            ( (void (*) (_class_B *) ) _b->vt[3]) (_b);
             printf("%d ",( (int (*) (_class_A *) ) _a->vt[0]) (_a));
-            printf("%d ",( (int (*) (_class_B *) ) _b->vt[-1]) (_b));
+            printf("%d ",( (int (*) (_class_B *) ) _b->vt[0]) (_b));
 _a = _c;
             printf("%d ",( (int (*) (_class_A *) ) _a->vt[0]) (_a));
 _c = new_C();

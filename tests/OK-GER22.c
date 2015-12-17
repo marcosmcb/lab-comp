@@ -16,7 +16,7 @@ _class_A*new_A(void);
 return    0;
 }
     void _A_m (_class_A *this) { 
-   printf("%d ",( (int (*) (_class_A *)) this->vt[0]) ((_class_A*) this));
+   printf("%d ",( (int (*)(_class_A * ))  this->vt[0]) ( (_class_A *) this));
 }
 Func VTclass_A[] = {
 ( void (*)() ) _A_f
@@ -41,7 +41,7 @@ _class_B*new_B(void);
 return       1;
 }
        void _B_p (_class_B *this) { 
-      printf("%d ",( (int (*) (_class_B *)) this->vt[0]) ((_class_B*) this) + ( (int (*) (_class_B *)) this->vt[3]) ((_class_B*) this));
+      printf("%d ",( (int (*)(_class_B * ))  this->vt[1]) ( (_class_B *) this) + ( (int (*)(_class_B * ))  this->vt[0]) ( (_class_B *) this));
 }
        void _B_r (_class_B *this) { 
       printf("%d ",      2);
@@ -50,11 +50,10 @@ return       1;
 return       10;
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_f
+( void (*)() ) _B_f
 ,( void (*)() ) _B_g
 ,( void (*)() ) _B_p
 ,( void (*)() ) _B_r
-,( void (*)() ) _B_f
 
 };
 
@@ -81,13 +80,10 @@ return          101;
          printf("%d ",         200);
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_g
-,            ( void (*)() ) _B_r
-,            ( void (*)() ) _B_f
-,            ( void (*)() ) _A_f
-,( void (*)() ) _C_f
-,( void (*)() ) _C_g
+( void (*)() ) _C_g
 ,( void (*)() ) _C_r
+,( void (*)() ) _C_f
+,( void (*)() ) _C_f
 
 };
 
@@ -105,7 +101,7 @@ typedef struct _St_D {
 
 _class_D*new_D(void);
 Func VTclass_D[] = {
-               ( void (*)() ) _A_f
+( void (*)() ) _A_f
 
 };
 
@@ -126,7 +122,7 @@ _class_F*new_F(void);
 return                3;
 }
                 void _F_m (_class_F *this) { 
-               printf("%d ",( (int (*) (_class_F *)) this->vt[0]) ((_class_F*) this));
+               printf("%d ",( (int (*)(_class_F * ))  this->vt[0]) ( (_class_F *) this));
 }
 Func VTclass_F[] = {
 ( void (*)() ) _F_f
@@ -158,17 +154,17 @@ _a = new_A();
 _class_B *_b;
 _b = new_B();
                   ( (void (*) (_class_B *) ) _b->vt[-1]) (_b);
-                  ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
                   ( (void (*) (_class_B *) ) _b->vt[2]) (_b);
+                  ( (void (*) (_class_B *) ) _b->vt[3]) (_b);
 _class_C *_c;
 _c = new_C();
                   ( (void (*) (_class_C *) ) _c->vt[-1]) (_c);
                   ( (void (*) (_class_C *) ) _c->vt[-1]) (_c);
-                  ( (void (*) (_class_C *) ) _c->vt[2]) (_c);
+                  ( (void (*) (_class_C *) ) _c->vt[1]) (_c);
 _b = _c;
                   ( (void (*) (_class_B *) ) _b->vt[-1]) (_b);
-                  ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
                   ( (void (*) (_class_B *) ) _b->vt[2]) (_b);
+                  ( (void (*) (_class_B *) ) _b->vt[3]) (_b);
 _class_D *_d;
 _d = new_D();
                   ( (void (*) (_class_D *) ) _d->vt[-1]) (_d);

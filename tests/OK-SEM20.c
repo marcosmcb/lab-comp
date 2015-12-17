@@ -53,11 +53,9 @@ return       1;
 return       1;
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_m1
-,         ( void (*)() ) _A_m2
-,         ( void (*)() ) _A_m4
-,( void (*)() ) _B_m1
+( void (*)() ) _B_m1
 ,( void (*)() ) _B_m2
+,( void (*)() ) _A_m4
 ,( void (*)() ) _B_mB
 
 };
@@ -85,11 +83,9 @@ return C;
 return finally;
 }
 Func VTclass_C[] = {
-            ( void (*)() ) _B_m1
-,            ( void (*)() ) _A_m1
-,            ( void (*)() ) _A_m2
-,            ( void (*)() ) _A_m4
+( void (*)() ) _C_m1
 ,( void (*)() ) _C_m1
+,( void (*)() ) _A_m2
 ,( void (*)() ) _C_m4
 ,( void (*)() ) _C_m5
 
@@ -109,9 +105,9 @@ typedef struct _St_D {
 
 _class_D*new_D(void);
 Func VTclass_D[] = {
-               ( void (*)() ) _A_m1
-,               ( void (*)() ) _A_m2
-,               ( void (*)() ) _A_m4
+( void (*)() ) _A_m1
+,( void (*)() ) _A_m2
+,( void (*)() ) _A_m4
 
 };
 
@@ -137,10 +133,7 @@ return                5;
 return Em4;
 }
 Func VTclass_E[] = {
-                  ( void (*)() ) _A_m1
-,                  ( void (*)() ) _A_m2
-,                  ( void (*)() ) _A_m4
-,( void (*)() ) _E_m1
+( void (*)() ) _E_m1
 ,( void (*)() ) _E_m2
 ,( void (*)() ) _E_m4
 
@@ -163,17 +156,17 @@ _class_Program*new_Program(void);
 _class_C *_c;
 _c = new_C();
                   printf("%d ",( (int (*) (_class_C *, int) ) _c->vt[0]) (_c, 1));
-                  ( (void (*) (_class_C *) ) _c->vt[-1]) (_c);
+                  ( (void (*) (_class_C *) ) _c->vt[2]) (_c);
                   puts("( (String (*) (_class_C *, char *, int) ) _c->vt[-1]) (_c, ok, 0)");
-                  puts("( (String (*) (_class_C *, int, int) ) _c->vt[1]) (_c,                   0, 0)");
-                  puts("( (String (*) (_class_C *) ) _c->vt[2]) (_c)");
+                  puts("( (String (*) (_class_C *, int, int) ) _c->vt[3]) (_c,                   0, 0)");
+                  puts("( (String (*) (_class_C *) ) _c->vt[4]) (_c)");
                   printf("%d ",( (int (*) (_class_C *) ) _c->vt[-1]) (_c) +                   1);
 _class_B *_b;
 _b = new_B();
                   printf("%d ",( (int (*) (_class_B *, int) ) _b->vt[0]) (_b, 1));
                   ( (void (*) (_class_B *) ) _b->vt[1]) (_b);
                   puts("( (String (*) (_class_B *, char *, int) ) _b->vt[-1]) (_b, ok, 0)");
-                  puts("( (String (*) (_class_B *, int, int) ) _b->vt[-1]) (_b,                   0, 0)");
+                  puts("( (String (*) (_class_B *, int, int) ) _b->vt[2]) (_b,                   0, 0)");
                   printf("%d ",( (int (*) (_class_C *) ) _c->vt[-1]) (_c) +                   1);
 _class_A *_a;
 _a = new_A();
@@ -183,10 +176,10 @@ _a = new_A();
                   puts("( (String (*) (_class_A *, int, int) ) _a->vt[3]) (_a,                   0, 0)");
 _class_D *_d;
 _d = new_D();
-                  printf("%d ",( (int (*) (_class_D *, int) ) _d->vt[-1]) (_d, 1));
-                  ( (void (*) (_class_D *) ) _d->vt[-1]) (_d);
+                  printf("%d ",( (int (*) (_class_D *, int) ) _d->vt[0]) (_d, 1));
+                  ( (void (*) (_class_D *) ) _d->vt[1]) (_d);
                   puts("( (String (*) (_class_D *, char *, int) ) _d->vt[-1]) (_d, ok, 0)");
-                  puts("( (String (*) (_class_D *, int, int) ) _d->vt[-1]) (_d,                   0, 0)");
+                  puts("( (String (*) (_class_D *, int, int) ) _d->vt[2]) (_d,                   0, 0)");
 _class_E *_e;
 _e = new_E();
                   printf("%d ",( (int (*) (_class_E *, int) ) _e->vt[0]) (_e, 1));

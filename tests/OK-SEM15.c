@@ -38,11 +38,11 @@ typedef struct _St_B {
 
 _class_B*new_B(void);
        void _B_m (_class_B *this) { 
-      _A_accept( (_class_A *) this, _x );
+      _A_accept( (_class_A *) this, this );
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_print
-,         ( void (*)() ) _A_accept
+( void (*)() ) _A_print
+,( void (*)() ) _A_accept
 ,( void (*)() ) _B_m
 
 };
@@ -63,7 +63,7 @@ _class_Program*new_Program(void);
           void _Program_run (_class_Program *this) { 
 _class_B *_b;
 _b = new_B();
-         ( (void (*) (_class_B *) ) _b->vt[0]) (_b);
+         ( (void (*) (_class_B *) ) _b->vt[2]) (_b);
 }
 Func VTclass_Program[] = {
 ( void (*)() ) _Program_run

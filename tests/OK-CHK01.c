@@ -40,8 +40,8 @@ _class_B*new_B(void);
        void _B_m4 (_class_B *this) { 
 }
 Func VTclass_B[] = {
-         ( void (*)() ) _A_m1
-,         ( void (*)() ) _A_m2
+( void (*)() ) _A_m1
+,( void (*)() ) _A_m2
 ,( void (*)() ) _B_m3
 ,( void (*)() ) _B_m4
 
@@ -102,13 +102,13 @@ _c2 = new_C();
             ( (void (*) (_class_A *) ) _a1->vt[0]) (_a1);
             ( (void (*) (_class_A *) ) _a1->vt[1]) (_a1);
             ( (void (*) (_class_A *) ) _a2->vt[1]) (_a2);
-            ( (void (*) (_class_B *) ) _b1->vt[0]) (_b1);
-            ( (void (*) (_class_B *) ) _b1->vt[0]) (_b1);
-            ( (void (*) (_class_B *) ) _b2->vt[0]) (_b2);
-            ( (void (*) (_class_B *) ) _b1->vt[1]) (_b1);
-            ( (void (*) (_class_B *) ) _b2->vt[1]) (_b2);
-            ( (void (*) (_class_B *) ) _b1->vt[1]) (_b1);
-            ( (void (*) (_class_B *) ) _b2->vt[1]) (_b2);
+            ( (void (*) (_class_B *) ) _b1->vt[2]) (_b1);
+            ( (void (*) (_class_B *) ) _b1->vt[2]) (_b1);
+            ( (void (*) (_class_B *) ) _b2->vt[2]) (_b2);
+            ( (void (*) (_class_B *) ) _b1->vt[3]) (_b1);
+            ( (void (*) (_class_B *) ) _b2->vt[3]) (_b2);
+            ( (void (*) (_class_B *) ) _b1->vt[3]) (_b1);
+            ( (void (*) (_class_B *) ) _b2->vt[3]) (_b2);
             ( (void (*) (_class_C *) ) _c1->vt[0]) (_c1);
             ( (void (*) (_class_C *) ) _c2->vt[0]) (_c2);
             ( (void (*) (_class_C *) ) _c1->vt[0]) (_c1);
